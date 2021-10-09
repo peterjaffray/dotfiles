@@ -1,25 +1,11 @@
-set default_user "paulirish"
-set default_machine "paulirish-macbookair2"
-
 
 source ~/.config/fish/path.fish
 source ~/.config/fish/aliases.fish
-source ~/.config/fish/chpwd.fish
-source ~/.config/fish/functions.fish
-source ~/.config/fish/chromium.fish
-# source ~/.config/fish/conf.d/scmpuff.fish
 
 # for things not checked into git..
 if test -e "$HOME/.extra.fish";
 	source ~/.extra.fish
 end
-
-# THEME PURE #
-set fish_function_path $HOME/.config/fish/functions/pure/functions/ $fish_function_path
-set fish_function_path $HOME/.config/fish/functions/pure/ $fish_function_path
-source $HOME/.config/fish/functions/pure/conf.d/pure.fish
-
-export GOPATH=$HOME/.go/
 
 # Completions
 function make_completion --argument-names alias command
@@ -32,9 +18,6 @@ function make_completion --argument-names alias command
     " | .
     complete -c $alias -a "(__alias_completion_$alias)"
 end
-
-make_completion g 'git'
-
 
 # Readline colors
 set -g fish_color_autosuggestion 555 yellow
@@ -60,18 +43,6 @@ set -g fish_color_valid_path --underline
 set -g fish_color_dimmed 555
 set -g fish_color_separator 999
 
-# Git prompt status
-set -g __fish_git_prompt_showdirtystate 'yes'
-set -g __fish_git_prompt_showupstream auto
-set -g pure_git_untracked_dirty false
-
-# pure
-set pure_threshold_command_duration 1
-set pure_separate_prompt_on_error true
-set pure_begin_prompt_with_current_directory false
-set -U pure_color_success (set_color green)
-set -U pure_color_git_dirty (set_color cyan)
-
 # Status Chars
 #set __fish_git_prompt_char_dirtystate '*'
 set __fish_git_prompt_char_upstream_equal ''
@@ -82,10 +53,6 @@ set __fish_git_prompt_color_dirtystate 'red'
 
 set __fish_git_prompt_color_upstream_ahead ffb90f
 set __fish_git_prompt_color_upstream_behind blue
-
-# Local prompt customization
-set -e fish_greeting
-
 
 set -g fish_pager_color_completion normal
 set -g fish_pager_color_description 555 yellow
@@ -106,15 +73,4 @@ set -gx LESS_TERMCAP_us \e'[04;38;5;146m' # begin underline
 # tabtab source for yarn package
 # uninstall by removing these lines or running `tabtab uninstall yarn`
 [ -f /Users/paulirish/.config/yarn/global/node_modules/tabtab/.completions/yarn.fish ]; and . /Users/paulirish/.config/yarn/global/node_modules/tabtab/.completions/yarn.fish
-
-
- # fzf should be populated via the silver searcher: https://github.com/junegunn/fzf#respecting-gitignore
- # note.. without `ag` this is a good fallback: set -gx FZF_DEFAULT_COMMAND 'fd --type f'
-set -gx FZF_DEFAULT_COMMAND 'command ag -l -g ""'
-set -gx FZF_CTRL_T_COMMAND "$FZF_DEFAULT_COMMAND"
-
-
-# TODO debug this
-# this currently messes with newlines in my prompt. lets debug it later.
-test -e {$HOME}/.iterm2_shell_integration.fish ; and source {$HOME}/.iterm2_shell_integration.fish
 
